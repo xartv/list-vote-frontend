@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 import { SITE_NAME } from '@/constants/seo.constants';
 
-import './globals.css';
+import './globals.scss';
+import { Providers } from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +24,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Providers>
+          {children}
+          <Toaster
+            theme='dark'
+            position='bottom-right'
+            duration={1500}
+          />
+        </Providers>
+      </body>
     </html>
   );
 }
