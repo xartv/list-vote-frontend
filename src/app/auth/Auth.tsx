@@ -6,6 +6,10 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { Button } from '@/components/Button';
+import { Field } from '@/components/Field';
+import { Title } from '@/components/Title';
+
 import { IAuthForm } from '@/types/auth.types';
 
 import { DASHBOARD_PAGES } from '@/config/pages-url.config';
@@ -35,23 +39,33 @@ export function Auth() {
   const onSubmit: SubmitHandler<IAuthForm> = data => mutate(data);
 
   return (
-    <div className='flex min-h-screen'>
+    <section className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+      <Title
+        element='h1'
+        title='Sign in to your account'
+      />
+
       <form
-        className='w-1/4 m-auto shadow rounded-xl'
-        onSubmit={handleSubmit(onSubmit)}
+        className='space-y-6 mt-10 sm:mx-auto sm:w-full sm:max-w-sm'
+        action='#'
+        method='POST'
       >
-        {/**
-         * HEADING
-         */}
-        {/**
-         * FIELDS
-         */}
-        <div className='flex items-center gap-5 justify-center'>
-          {/**
-           * BUTTONS
-           */}
-        </div>
+        <Field
+          id='email'
+          name='email'
+          type='email'
+          label='Email address'
+        />
+
+        <Field
+          id='password'
+          name='password'
+          type='password'
+          label='Password'
+        />
+
+        <Button type='submit'>Sign in</Button>
       </form>
-    </div>
+    </section>
   );
 }
