@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/Button';
 import { Field } from '@/components/Field';
+import { Text } from '@/components/Text';
 import { Title } from '@/components/Title';
 
 import { IAuthForm } from '@/types/auth.types';
@@ -40,10 +41,7 @@ export function Auth() {
 
   return (
     <section className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-      <Title
-        element='h1'
-        title='Sign in to your account'
-      />
+      <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
 
       <form
         className='space-y-6 mt-10 sm:mx-auto sm:w-full sm:max-w-sm'
@@ -64,7 +62,14 @@ export function Auth() {
           label='Password'
         />
 
-        <Button type='submit'>Sign in</Button>
+        <Text
+          className='underline underline-offset-2 cursor-pointer'
+          onClick={() => setIsLoginForm(prev => !prev)}
+        >
+          {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
+        </Text>
+
+        <Button type='submit'>{isLoginForm ? 'Sign in' : 'Sign up'}</Button>
       </form>
     </section>
   );

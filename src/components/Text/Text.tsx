@@ -3,9 +3,16 @@ import { HTMLAttributes, PropsWithChildren } from 'react';
 
 export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {}
 
-export function Text({ children, className }: PropsWithChildren<TextProps>) {
+export function Text({
+  children,
+  className,
+  ...rest
+}: PropsWithChildren<TextProps>) {
   return (
-    <p className={clsx('mt-10 text-center text-sm text-gray-500', className)}>
+    <p
+      className={clsx('mt-10 text-center text-sm text-gray-500', className)}
+      {...rest}
+    >
       {children}
     </p>
   );
