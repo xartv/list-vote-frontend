@@ -11,7 +11,7 @@ const BASE_URL = process.env.BASE_URL ?? 'localhost';
 const API_PORT = process.env.API_PORT ?? '3002';
 
 const options: CreateAxiosDefaults = {
-  baseURL: `http://${BASE_URL}:API_PORT/api`,
+  baseURL: `http://${BASE_URL}:${API_PORT}/api`,
   headers: {
     'Content-Type': 'application/json',
   },

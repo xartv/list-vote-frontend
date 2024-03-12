@@ -1,5 +1,5 @@
 class DASHBOARD {
-  private root = '/d';
+  private root = '/dashboard';
 
   HOME = this.root;
   CREATED_LISTS = `${this.root}/created-lists`;

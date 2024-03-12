@@ -47,19 +47,24 @@ export function Auth() {
         className='space-y-6 mt-10 sm:mx-auto sm:w-full sm:max-w-sm'
         action='#'
         method='POST'
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Field
           id='email'
-          name='email'
           type='email'
           label='Email address'
+          {...register('email', {
+            required: 'Email is required',
+          })}
         />
 
         <Field
           id='password'
-          name='password'
           type='password'
           label='Password'
+          {...register('password', {
+            required: 'Password is required',
+          })}
         />
 
         <Text
