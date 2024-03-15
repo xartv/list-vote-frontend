@@ -6,10 +6,10 @@ import { ETokens } from './types/auth.types';
 export async function middleware(request: NextRequest, response: NextResponse) {
   const { url, cookies } = request;
 
-  const accessToken = cookies.get(ETokens.ACCESS_TOKEN)?.value;
+  const refresh = cookies.get(ETokens.REFRESH_TOKEN)?.value;
   const isAuthPage = url.includes('auth');
 
-  if (isAuthPage && accessToken) {
+  if (isAuthPage && refresh) {
     return NextResponse.redirect(new URL(DASHBOARD_PAGES.HOME, url));
   }
 
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.next();
   }
 
-  if (!accessToken) {
+  if (!refresh) {
     return NextResponse.redirect(new URL(EXTERNAL_PAGES.AUTH, url));
   }
 
