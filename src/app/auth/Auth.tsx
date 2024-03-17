@@ -1,9 +1,11 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import PasswordStrengthBar from 'react-password-strength-bar';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/Button';
@@ -18,11 +20,15 @@ import { DASHBOARD_PAGES } from '@/config/pages-url.config';
 import { authService } from '@/services/auth.service';
 
 export function Auth() {
-  const { register, handleSubmit, reset } = useForm<IAuthForm>({
+  const { register, handleSubmit, reset, watch } = useForm<IAuthForm>({
     mode: 'onChange',
   });
 
   const [isLoginForm, setIsLoginForm] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState<number>(0);
+
+  console.log(passwordStrength);
 
   const { push } = useRouter();
 
@@ -36,6 +42,16 @@ export function Auth() {
       push(DASHBOARD_PAGES.HOME);
     },
   });
+
+  const password = watch('password');
+  const email = watch('email');
+
+  const isSubmitButtonDisabled =
+    !isLoginForm &&
+    (!email ||
+      !password ||
+      password !== passwordConfirm ||
+      passwordStrength < 3);
 
   const onSubmit: SubmitHandler<IAuthForm> = data => mutate(data);
 
@@ -67,6 +83,21 @@ export function Auth() {
           })}
         />
 
+        <Field
+          id='passwordConfirm'
+          type='password'
+          label='Confirm password'
+          onChange={e => setPasswordConfirm(e.target.value)}
+        />
+
+        {!isLoginForm && (
+          <PasswordStrengthBar
+            password={password}
+            minLength={6}
+            onChangeScore={score => setPasswordStrength(score)}
+          />
+        )}
+
         <Text
           className='underline underline-offset-2 cursor-pointer'
           onClick={() => setIsLoginForm(prev => !prev)}
@@ -74,7 +105,14 @@ export function Auth() {
           {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
         </Text>
 
-        <Button type='submit'>{isLoginForm ? 'Sign in' : 'Sign up'}</Button>
+        <Button
+          type='submit'
+          className={
+            isSubmitButtonDisabled ? 'opacity-30 cursor-not-allowed' : undefined
+          }
+        >
+          {isLoginForm ? 'Sign in' : 'Sign up'}
+        </Button>
       </form>
     </section>
   );
