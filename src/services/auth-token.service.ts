@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-import { ETokens } from '@/types/auth.types';
+import { ETokens } from '@/constants/auth.constants';
 
 const BASE_URL = process.env.BASE_URL ?? 'localhost';
 

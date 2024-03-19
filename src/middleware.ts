@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { DASHBOARD_PAGES, EXTERNAL_PAGES } from './config/pages-url.config';
-import { ETokens } from './types/auth.types';
+import { ETokens } from './constants/auth.constants';
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const { url, cookies } = request;

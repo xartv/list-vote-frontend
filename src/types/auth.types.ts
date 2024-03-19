@@ -1,3 +1,5 @@
+import { AUTH_ERROR_MESSAGES } from '@/constants/auth.constants';
+
 import { IUser } from './user.types';
 
 export interface IAuthForm {
@@ -10,7 +12,6 @@ export interface IAuthResponse {
   user: IUser;
 }
 
-export enum ETokens {
-  ACCESS_TOKEN = 'accessToken',
-  REFRESH_TOKEN = 'refreshToken',
-}
+export type TAuthErrorResponse = {
+  message: AUTH_ERROR_MESSAGES;
+};

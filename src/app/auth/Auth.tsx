@@ -1,9 +1,10 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { toast } from 'sonner';
@@ -13,7 +14,9 @@ import { Field } from '@/components/Field';
 import { Text } from '@/components/Text';
 import { Title } from '@/components/Title';
 
-import { IAuthForm } from '@/types/auth.types';
+import { AUTH_ERROR_MESSAGES } from '@/constants/auth.constants';
+
+import { IAuthForm, TAuthErrorResponse } from '@/types/auth.types';
 
 import { DASHBOARD_PAGES } from '@/config/pages-url.config';
 
@@ -28,39 +31,67 @@ export function Auth() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
 
-  console.log(passwordStrength);
-
   const { push } = useRouter();
-
-  const { mutate } = useMutation({
-    mutationKey: ['auth'],
-    mutationFn: (data: IAuthForm) =>
-      authService.main(isLoginForm ? 'login' : 'register', data),
-    onSuccess() {
-      toast.success('You have successfully logged in');
-      reset();
-      push(DASHBOARD_PAGES.HOME);
-    },
-  });
 
   const password = watch('password');
   const email = watch('email');
 
+  const isPasswordEqualsConfirm = password && password === passwordConfirm;
+  const isPasswordStrong = passwordStrength >= 3;
   const isSubmitButtonDisabled =
-    !isLoginForm &&
-    (!email ||
-      !password ||
-      password !== passwordConfirm ||
-      passwordStrength < 3);
+    !isLoginForm && (!email || !isPasswordEqualsConfirm || !isPasswordStrong);
 
-  const onSubmit: SubmitHandler<IAuthForm> = data => mutate(data);
+  const mutationFn = (data: IAuthForm) =>
+    authService.main(isLoginForm ? 'login' : 'register', data);
+
+  const onSuccess = () => {
+    toast.success('You have successfully logged in');
+    reset();
+    push(DASHBOARD_PAGES.HOME);
+  };
+
+  const onError = (error: AxiosError<TAuthErrorResponse>) => {
+    const message = error.response?.data.message;
+
+    if (message === AUTH_ERROR_MESSAGES.USER_ALREADY_EXIST) {
+      toast.error(AUTH_ERROR_MESSAGES.USER_ALREADY_EXIST);
+    }
+
+    if (
+      Array.isArray(message) &&
+      message.includes(AUTH_ERROR_MESSAGES.PASSWORD_LENGTH)
+    ) {
+      toast.error(AUTH_ERROR_MESSAGES.PASSWORD_LENGTH);
+    }
+  };
+
+  const onSubmit: SubmitHandler<IAuthForm> = data => {
+    if (!isPasswordEqualsConfirm) {
+      toast.error(AUTH_ERROR_MESSAGES.PASSWORD_NOT_CONFIRMED);
+      return;
+    }
+
+    if (!isPasswordStrong) {
+      toast.error(AUTH_ERROR_MESSAGES.PASSWORD_NOT_STRONG);
+      return;
+    }
+
+    mutate(data);
+  };
+
+  const { mutate } = useMutation({
+    mutationKey: ['auth'],
+    mutationFn,
+    onSuccess,
+    onError,
+  });
 
   return (
     <section className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
       <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
 
       <form
-        className='space-y-6 mt-10 sm:mx-auto sm:w-full sm:max-w-sm'
+        className='mt-10 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm'
         action='#'
         method='POST'
         onSubmit={handleSubmit(onSubmit)}
@@ -83,12 +114,14 @@ export function Auth() {
           })}
         />
 
-        <Field
-          id='passwordConfirm'
-          type='password'
-          label='Confirm password'
-          onChange={e => setPasswordConfirm(e.target.value)}
-        />
+        {!isLoginForm && (
+          <Field
+            id='passwordConfirm'
+            type='password'
+            label='Confirm password'
+            onChange={e => setPasswordConfirm(e.target.value)}
+          />
+        )}
 
         {!isLoginForm && (
           <PasswordStrengthBar
@@ -99,7 +132,7 @@ export function Auth() {
         )}
 
         <Text
-          className='underline underline-offset-2 cursor-pointer'
+          className='cursor-pointer underline underline-offset-2'
           onClick={() => setIsLoginForm(prev => !prev)}
         >
           {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
@@ -108,7 +141,7 @@ export function Auth() {
         <Button
           type='submit'
           className={
-            isSubmitButtonDisabled ? 'opacity-30 cursor-not-allowed' : undefined
+            isSubmitButtonDisabled ? 'cursor-not-allowed opacity-30' : undefined
           }
         >
           {isLoginForm ? 'Sign in' : 'Sign up'}
