@@ -140,9 +140,7 @@ export function Auth() {
 
         <Button
           type='submit'
-          className={
-            isSubmitButtonDisabled ? 'cursor-not-allowed opacity-30' : undefined
-          }
+          disabledUi={isSubmitButtonDisabled}
         >
           {isLoginForm ? 'Sign in' : 'Sign up'}
         </Button>
