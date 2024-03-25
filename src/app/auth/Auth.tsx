@@ -2,9 +2,10 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import clsx from 'clsx';
+import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { toast } from 'sonner';
@@ -23,13 +24,25 @@ import { DASHBOARD_PAGES } from '@/config/pages-url.config';
 import { authService } from '@/services/auth.service';
 
 export function Auth() {
-  const { register, handleSubmit, reset, watch } = useForm<IAuthForm>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<IAuthForm>({
     mode: 'onChange',
   });
 
-  const [isLoginForm, setIsLoginForm] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
+  const [passwordType, setPasswordType] = useState<'text' | 'password'>(
+    'password',
+  );
+  const [confirmPasswordType, setConfirmPasswordType] = useState<
+    'text' | 'password'
+  >('password');
 
   const { push } = useRouter();
 
@@ -66,17 +79,25 @@ export function Auth() {
   };
 
   const onSubmit: SubmitHandler<IAuthForm> = data => {
-    if (!isPasswordEqualsConfirm) {
+    if (!isLoginForm && !isPasswordEqualsConfirm) {
       toast.error(AUTH_ERROR_MESSAGES.PASSWORD_NOT_CONFIRMED);
       return;
     }
 
-    if (!isPasswordStrong) {
+    if (!isLoginForm && !isPasswordStrong) {
       toast.error(AUTH_ERROR_MESSAGES.PASSWORD_NOT_STRONG);
       return;
     }
 
     mutate(data);
+  };
+
+  const resetForm = () => {
+    reset();
+    setPasswordConfirm('');
+    setPasswordStrength(0);
+    setPasswordType('password');
+    setConfirmPasswordType('password');
   };
 
   const { mutate } = useMutation({
@@ -85,6 +106,31 @@ export function Auth() {
     onSuccess,
     onError,
   });
+
+  const passwordsPostfix = (
+    field: 'password' | 'text',
+    setter: Dispatch<SetStateAction<'password' | 'text'>>,
+  ) => {
+    const handleClick = () => {
+      setter(prev => (prev === 'password' ? 'text' : 'password'));
+    };
+
+    return field === 'password' ? (
+      <Eye
+        size={18}
+        strokeWidth={2}
+        onClick={handleClick}
+        className='cursor-pointer'
+      />
+    ) : (
+      <EyeOff
+        size={18}
+        strokeWidth={2}
+        onClick={handleClick}
+        className='cursor-pointer'
+      />
+    );
+  };
 
   return (
     <section className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -103,23 +149,30 @@ export function Auth() {
           {...register('email', {
             required: 'Email is required',
           })}
+          error={errors.email}
         />
 
         <Field
           id='password'
-          type='password'
+          type={passwordType}
           label='Password'
           {...register('password', {
             required: 'Password is required',
           })}
+          error={errors.password}
+          postfix={passwordsPostfix(passwordType, setPasswordType)}
         />
 
         {!isLoginForm && (
           <Field
             id='passwordConfirm'
-            type='password'
+            type={confirmPasswordType}
             label='Confirm password'
             onChange={e => setPasswordConfirm(e.target.value)}
+            postfix={passwordsPostfix(
+              confirmPasswordType,
+              setConfirmPasswordType,
+            )}
           />
         )}
 
@@ -133,7 +186,10 @@ export function Auth() {
 
         <Text
           className='cursor-pointer underline underline-offset-2'
-          onClick={() => setIsLoginForm(prev => !prev)}
+          onClick={() => {
+            resetForm();
+            setIsLoginForm(prev => !prev);
+          }}
         >
           {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
         </Text>
