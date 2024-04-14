@@ -9,10 +9,10 @@ Backend you can find here https://github.com/xartv/list-vote-backend
 
 ## Installation and running
 
-1. Fetch the project and install the dependencies
+1. Clone the project and install the dependencies
 
 ```bash
-git fetch https://github.com/xartv/list-vote-frontend.git
+git clone https://github.com/xartv/list-vote-frontend.git
 ```
 
 ```bash
