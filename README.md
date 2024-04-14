@@ -1,6 +1,6 @@
 ## Description
 
-Frontend for **list-vote** project. 
+Frontend for **list-vote** project. **Work in progress!**
 Backend you can find here https://github.com/xartv/list-vote-backend
 
 **The project idea** is shared lists with the ability for users to rate the items on the list. It's convenient for choosing weekend activities with a group of friends or selecting a movie for a family viewing. Everyone can add their suggestion to the list and vote for other options.
