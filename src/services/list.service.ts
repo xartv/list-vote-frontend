@@ -21,7 +21,7 @@ class ListService {
   }
 
   async getAvailableLists() {
-    const { data } = await axiosWithAuth.get<IList>(
+    const { data } = await axiosWithAuth.get<IList[]>(
       `${this.BASE_URL}/available`,
     );
 
@@ -29,7 +29,7 @@ class ListService {
   }
 
   async getCreatedLists() {
-    const { data } = await axiosWithAuth.get<IList>(`${this.BASE_URL}/created`);
+    const { data } = await axiosWithAuth.get<IList[]>(`${this.BASE_URL}/created`);
 
     return data;
   }
