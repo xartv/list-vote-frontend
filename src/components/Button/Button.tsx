@@ -24,9 +24,8 @@ export function Button({
       className={button({
         size: size,
         theme: theme,
-        className: clsx(className, {
-          'cursor-not-allowed opacity-30': disabledUi,
-        }),
+        disabled: disabledUi,
+        className,
       })}
       {...rest}
     >

@@ -13,6 +13,9 @@ export const button = tv({
       full: 'w-full',
       fit: 'w-fit',
     },
+    disabled: {
+      true: 'cursor-not-allowed opacity-30',
+    },
   },
   defaultVariants: {
     theme: 'primary',
