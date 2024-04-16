@@ -10,7 +10,7 @@ export function Text({
 }: PropsWithChildren<TextProps>) {
   return (
     <p
-      className={clsx('mt-10 text-center text-sm text-gray-500', className)}
+      className={clsx('text-center text-sm text-gray-500', className)}
       {...rest}
     >
       {children}

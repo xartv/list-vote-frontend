@@ -1,12 +1,15 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { Button } from '@/components/Button';
+import { Text } from '@/components/Text';
 
 import { useCreateList } from '@/hooks/useCreateList';
 import { useCreateListItem } from '@/hooks/useCreateListItem';
 import { useDeleteList } from '@/hooks/useDeleteList';
+import { useDeleteListItem } from '@/hooks/useDeleteListItem';
 import { useLists } from '@/hooks/useLists';
 
 import { CreateListItem } from './CreateListItem/CreateListItem';
@@ -17,6 +20,7 @@ export function Dashboard() {
   const { data: lists } = useLists();
   const { deleteList } = useDeleteList();
   const { createList } = useCreateList();
+  const { deleteListItem } = useDeleteListItem();
 
   if (!lists?.length) return <div>No lists</div>;
 
@@ -30,14 +34,28 @@ export function Dashboard() {
           <div className='mx-auto'>{list.title}</div>
 
           {Boolean(list.items.length) && (
-            <ul className='mt-4 list-inside list-disc'>
+            <ul className='mt-4 flex list-inside list-disc flex-col gap-2'>
               {list.items.map(item => (
-                <li key={item.id}>{item.title}</li>
+                <li
+                  key={item.id}
+                  className='flex items-center gap-4'
+                >
+                  <Text>{item.title}</Text>
+                  <Button
+                    size='fit'
+                    className='text-xs'
+                    onClick={() => deleteListItem(item.id)}
+                  >
+                    X
+                  </Button>
+                </li>
               ))}
             </ul>
           )}
 
           <CreateListItem listId={list.id} />
+
+          <Link href={`/dashboard/edit/${list.id}`}>Edit list</Link>
 
           <Button onClick={() => deleteList(list.id)}>Delete list</Button>
         </li>

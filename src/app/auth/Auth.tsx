@@ -116,14 +116,14 @@ export function Auth() {
     };
 
     return field === 'password' ? (
-      <Eye
+      <EyeOff
         size={18}
         strokeWidth={2}
         onClick={handleClick}
         className='cursor-pointer'
       />
     ) : (
-      <EyeOff
+      <Eye
         size={18}
         strokeWidth={2}
         onClick={handleClick}

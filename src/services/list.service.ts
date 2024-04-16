@@ -14,8 +14,19 @@ class ListService {
     return data;
   }
 
-  async updateList(newData: TListRequest) {
-    const { data } = await axiosWithAuth.patch<IList>(this.BASE_URL, newData);
+  async updateList(newData: TListRequest, listId: string) {
+    const { data } = await axiosWithAuth.patch<IList>(
+      `${this.BASE_URL}/${listId}`,
+      newData,
+    );
+
+    return data;
+  }
+
+  async getListById(listId: string) {
+    const { data } = await axiosWithAuth.get<IList>(
+      `${this.BASE_URL}/${listId}`,
+    );
 
     return data;
   }
@@ -29,7 +40,9 @@ class ListService {
   }
 
   async getCreatedLists() {
-    const { data } = await axiosWithAuth.get<IList[]>(`${this.BASE_URL}/created`);
+    const { data } = await axiosWithAuth.get<IList[]>(
+      `${this.BASE_URL}/created`,
+    );
 
     return data;
   }
