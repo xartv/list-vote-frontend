@@ -1,4 +1,4 @@
 export type TUserListRequest = {
-  userId: string;
+  userEmail: string;
   listId: string;
 };

@@ -4,15 +4,14 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { Button } from '@/components/Button';
-import { Text } from '@/components/Text';
 
 import { useCreateList } from '@/hooks/useCreateList';
-import { useCreateListItem } from '@/hooks/useCreateListItem';
 import { useDeleteList } from '@/hooks/useDeleteList';
-import { useDeleteListItem } from '@/hooks/useDeleteListItem';
 import { useLists } from '@/hooks/useLists';
 
 import { CreateListItem } from './CreateListItem/CreateListItem';
+import { ListAssignment } from './ListAssignment';
+import { ListItem } from './ListItem';
 
 export function Dashboard() {
   const [createdListTitle, setCreatedListTitle] = useState<string>('');
@@ -20,7 +19,6 @@ export function Dashboard() {
   const { data: lists } = useLists();
   const { deleteList } = useDeleteList();
   const { createList } = useCreateList();
-  const { deleteListItem } = useDeleteListItem();
 
   if (!lists?.length) return <div>No lists</div>;
 
@@ -36,19 +34,10 @@ export function Dashboard() {
           {Boolean(list.items.length) && (
             <ul className='mt-4 flex list-inside list-disc flex-col gap-2'>
               {list.items.map(item => (
-                <li
+                <ListItem
                   key={item.id}
-                  className='flex items-center gap-4'
-                >
-                  <Text>{item.title}</Text>
-                  <Button
-                    size='fit'
-                    className='text-xs'
-                    onClick={() => deleteListItem(item.id)}
-                  >
-                    X
-                  </Button>
-                </li>
+                  listItem={item}
+                />
               ))}
             </ul>
           )}
@@ -58,6 +47,8 @@ export function Dashboard() {
           <Link href={`/dashboard/edit/${list.id}`}>Edit list</Link>
 
           <Button onClick={() => deleteList(list.id)}>Delete list</Button>
+
+          <ListAssignment listId={list.id} />
         </li>
       ))}
 

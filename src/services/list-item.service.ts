@@ -14,8 +14,11 @@ class ListItemService {
     return data;
   }
 
-  async updateListItem(newData: TListItemRequest) {
-    const { data } = await axiosWithAuth.patch<IListItem>(this.BASE_URL, newData);
+  async updateListItem(listItemId: string, newData: TListItemRequest) {
+    const { data } = await axiosWithAuth.patch<IListItem>(
+      `${this.BASE_URL}/${listItemId}`,
+      newData,
+    );
 
     return data;
   }
