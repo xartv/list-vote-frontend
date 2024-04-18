@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import { Toaster } from 'sonner';
 
 import { SITE_NAME } from '@/constants/seo.constants';
@@ -8,7 +8,7 @@ import { SITE_NAME } from '@/constants/seo.constants';
 import './globals.scss';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +28,7 @@ export default function RootLayout({
       lang='en'
       className='h-full bg-white'
     >
-      <body className={clsx(inter.className, 'h-full')}>
+      <body className={clsx(roboto.className, 'h-full')}>
         <Providers>
           {children}
           <Toaster
