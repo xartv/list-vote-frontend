@@ -7,12 +7,25 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      'green-light': '#17C047',
+      green: '#0EA338',
+      'black-light': '#2D2F31',
+      black: '#171717',
+      'black-middle': '#1E1E1E',
+      'black-stroke': '#272727',
+      'grey-stroke': '#545556',
+      pink: '#B867F8',
+      blue: '#4A5BE6',
+      'text-white': '#FFFFFF',
+      'text-grey': '#6C6C6C',
+    },
     extend: {
       gridTemplateRows: {
         dashboardRows: '100px 1fr',
       },
       gridTemplateColumns: {
-        dashboardCol: '250px 1fr'
+        dashboardCol: '250px 1fr',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

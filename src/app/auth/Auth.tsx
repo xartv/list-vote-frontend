@@ -10,10 +10,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { toast } from 'sonner';
 
-import { Button } from '@/components/Button';
-import { Field } from '@/components/Field';
-import { Text } from '@/components/Text';
-import { Title } from '@/components/Title';
+import { Button } from '@/components/ui/Button';
+import { Field } from '@/components/ui/Field';
+import { Text } from '@/components/ui/Text';
+import { Title } from '@/components/ui/Title';
 
 import { AUTH_ERROR_MESSAGES } from '@/constants/auth.constants';
 

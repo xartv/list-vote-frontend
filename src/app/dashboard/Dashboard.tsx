@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/components/ui/Button';
 
 import { useCreateList } from '@/hooks/useCreateList';
 import { useDeleteList } from '@/hooks/useDeleteList';

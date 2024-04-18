@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { Button } from '@/components/Button';
-import { Text } from '@/components/Text';
+import { Button } from '@/components/ui/Button';
+import { Text } from '@/components/ui/Text';
 
 import { IListItem } from '@/types/list-item.types';
 

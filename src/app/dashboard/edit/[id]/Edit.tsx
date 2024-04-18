@@ -4,8 +4,8 @@ import { log } from 'console';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { Button } from '@/components/Button';
-import { Title } from '@/components/Title';
+import { Button } from '@/components/ui/Button';
+import { Title } from '@/components/ui/Title';
 
 import { useListById } from '@/hooks/useListById';
 import { useUpdateList } from '@/hooks/useUpdateList';

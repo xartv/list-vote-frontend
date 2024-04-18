@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/components/ui/Button';
 
 import { useAssignList } from '@/hooks/useAssignList';
 import { useDeleteListAssignment } from '@/hooks/useDeleteListAssignment';
