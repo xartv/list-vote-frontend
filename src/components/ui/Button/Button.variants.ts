@@ -1,14 +1,8 @@
 import { tv } from 'tailwind-variants';
 
 export const button = tv({
-  base: 'flex justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm transition-color duration-150 focus-visible:outline-2 focus-visible:outline-offset-2',
+  base: 'flex justify-center text-[16px] leading-[20px] items-center rounded transition-colors duration-150 bg-green-light text-white hover:bg-green focus-visible:bg-green',
   variants: {
-    theme: {
-      primary:
-        'bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline-indigo-600',
-      secondary:
-        'bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-200 focus-visible:outline-indigo-100',
-    },
     size: {
       full: 'w-full',
       fit: 'w-fit',
@@ -16,9 +10,13 @@ export const button = tv({
     disabled: {
       true: 'cursor-not-allowed opacity-30',
     },
+    height: {
+      '44': 'h-[44px]',
+      '52': 'h-[52px]',
+    },
   },
   defaultVariants: {
-    theme: 'primary',
     size: 'full',
+    height: '44',
   },
 });

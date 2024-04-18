@@ -11,7 +11,8 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
-import { Field } from '@/components/ui/Field';
+import { Card } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import { Text } from '@/components/ui/Text';
 import { Title } from '@/components/ui/Title';
 
@@ -133,74 +134,78 @@ export function Auth() {
   };
 
   return (
-    <section className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-      <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
+    <section className='flex min-h-full  items-center justify-center'>
+      <Card className='flex min-h-[400px] w-[500px] flex-col items-center justify-center p-12'>
+        <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
 
-      <form
-        className='mt-10 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm'
-        action='#'
-        method='POST'
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Field
-          id='email'
-          type='email'
-          label='Email address'
-          {...register('email', {
-            required: 'Email is required',
-          })}
-          error={errors.email}
-        />
-
-        <Field
-          id='password'
-          type={passwordType}
-          label='Password'
-          {...register('password', {
-            required: 'Password is required',
-          })}
-          error={errors.password}
-          postfix={passwordsPostfix(passwordType, setPasswordType)}
-        />
-
-        {!isLoginForm && (
-          <Field
-            id='passwordConfirm'
-            type={confirmPasswordType}
-            label='Confirm password'
-            onChange={e => setPasswordConfirm(e.target.value)}
-            postfix={passwordsPostfix(
-              confirmPasswordType,
-              setConfirmPasswordType,
-            )}
-          />
-        )}
-
-        {!isLoginForm && (
-          <PasswordStrengthBar
-            password={password}
-            minLength={6}
-            onChangeScore={score => setPasswordStrength(score)}
-          />
-        )}
-
-        <Text
-          className='cursor-pointer underline underline-offset-2'
-          onClick={() => {
-            resetForm();
-            setIsLoginForm(prev => !prev);
-          }}
+        <form
+          className='mt-10 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm'
+          action='#'
+          method='POST'
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {isLoginForm ? "Don't have an account?" : 'Already have an account?'}
-        </Text>
+          <Input
+            id='email'
+            type='email'
+            label='Email address'
+            {...register('email', {
+              required: 'Email is required',
+            })}
+            error={errors.email}
+          />
 
-        <Button
-          type='submit'
-          disabledUi={isSubmitButtonDisabled}
-        >
-          {isLoginForm ? 'Sign in' : 'Sign up'}
-        </Button>
-      </form>
+          <Input
+            id='password'
+            type={passwordType}
+            label='Password'
+            {...register('password', {
+              required: 'Password is required',
+            })}
+            error={errors.password}
+            postfix={passwordsPostfix(passwordType, setPasswordType)}
+          />
+
+          {!isLoginForm && (
+            <Input
+              id='passwordConfirm'
+              type={confirmPasswordType}
+              label='Confirm password'
+              onChange={e => setPasswordConfirm(e.target.value)}
+              postfix={passwordsPostfix(
+                confirmPasswordType,
+                setConfirmPasswordType,
+              )}
+            />
+          )}
+
+          {!isLoginForm && (
+            <PasswordStrengthBar
+              password={password}
+              minLength={6}
+              onChangeScore={score => setPasswordStrength(score)}
+            />
+          )}
+
+          <Text
+            className='cursor-pointer underline underline-offset-2'
+            onClick={() => {
+              resetForm();
+              setIsLoginForm(prev => !prev);
+            }}
+          >
+            {isLoginForm
+              ? "Don't have an account?"
+              : 'Already have an account?'}
+          </Text>
+
+          <Button
+            type='submit'
+            disabledUi={isSubmitButtonDisabled}
+          >
+            {isLoginForm ? 'Sign in' : 'Sign up'}
+          </Button>
+        </form>
+      </Card>
     </section>
   );
 }

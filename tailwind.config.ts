@@ -17,8 +17,15 @@ const config: Config = {
       'grey-stroke': '#545556',
       pink: '#B867F8',
       blue: '#4A5BE6',
+      red: '#EC3434',
       'text-white': '#FFFFFF',
       'text-grey': '#6C6C6C',
+    },
+    borderRadius: {
+      DEFAULT: '100px',
+      xs: '8px',
+      sm: '16px',
+      md: '20px',
     },
     extend: {
       gridTemplateRows: {
