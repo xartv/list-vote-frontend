@@ -3,22 +3,25 @@ import Image from 'next/image';
 interface AvatarProps {
   userName?: string;
   imageSrc?: string;
+  className?: string;
 }
 
-export function Avatar({ userName, imageSrc }: AvatarProps) {
+export function Avatar({ userName, imageSrc, className }: AvatarProps) {
   const firstLetter = (userName?.[0] ?? 'U').toUpperCase();
 
   return (
-    <div className='w-[60px] h-[60px] rounded-full border border-solid border-white bg-sky-400 flex justify-center items-center'>
+    <div
+      className={`flex h-[32px] w-[32px] items-center justify-center rounded bg-green ${className}`}
+    >
       {imageSrc && (
         <Image
           src={imageSrc}
           alt='avatar'
-          width={40}
+          width={32}
         />
       )}
 
-      {!imageSrc && <div className='text-white text-3xl'>{firstLetter}</div>}
+      {!imageSrc && <div className='text-white text-[15px]'>{firstLetter}</div>}
     </div>
   );
 }

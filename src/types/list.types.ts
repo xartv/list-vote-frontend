@@ -7,7 +7,7 @@ export interface IList extends IBase {
 
   author?: Pick<IUser, 'email' | 'name'>[];
   accessUsers: {
-    user: Pick<IUser, 'id' | 'email'>;
+    user: Pick<IUser, 'id' | 'email' | 'name'>;
   }[];
   items: IListItem[];
 }

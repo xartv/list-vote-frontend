@@ -28,12 +28,6 @@ const config: Config = {
       md: '20px',
     },
     extend: {
-      gridTemplateRows: {
-        dashboardRows: '100px 1fr',
-      },
-      gridTemplateColumns: {
-        dashboardCol: '250px 1fr',
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

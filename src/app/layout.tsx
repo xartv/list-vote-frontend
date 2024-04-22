@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className='h-full bg-white'
+      className='h-full'
     >
       <body className={clsx(roboto.className, 'h-full')}>
         <Providers>
