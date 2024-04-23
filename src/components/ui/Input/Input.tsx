@@ -3,7 +3,7 @@ import { InputHTMLAttributes, forwardRef } from 'react';
 import type { ReactNode } from 'react';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: any;
   classNames?: {
     label?: string;
@@ -29,13 +29,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
-      <div>
-        <label
-          htmlFor={id}
-          className={clsx('block text-[14px] text-white', classNames.label)}
-        >
-          {label}
-        </label>
+      <div className='flex flex-col gap-2'>
+        {Boolean(label) && (
+          <label
+            htmlFor={id}
+            className={clsx('text-white block text-[14px]', classNames.label)}
+          >
+            {label}
+          </label>
+        )}
 
         <div className='relative'>
           <input
@@ -46,8 +48,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             required={required}
             autoComplete={autoComplete}
             className={clsx(
-              'rounded-xs border-1 bg-black-middle border-grey-stroke ring-green focus:ring-green focus:border-green placeholder:text-gray mt-2 block w-full  py-1.5',
               classNames.input,
+              'border-1 block w-full rounded-xs border-grey-stroke bg-black-middle py-1.5 ring-green placeholder:text-[16px] placeholder:text-text-grey focus:border-green  focus:ring-green',
             )}
             {...rest}
           />
@@ -60,7 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {error?.message && (
-          <span className='text-red text-[12px] leading-[14px]'>
+          <span className='text-[12px] leading-[14px] text-red'>
             {error.message}
           </span>
         )}

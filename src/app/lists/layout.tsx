@@ -13,7 +13,9 @@ export default function ListsLayout({
       <div className='flex h-full items-start justify-center gap-[24px] px-[32px]'>
         <Sidebar />
 
-        <section className='grow-1 w-full max-w-[906px]'>{children}</section>
+        <section className='grow-1 h-full w-full max-w-[906px]'>
+          {children}
+        </section>
       </div>
     </section>
   );
