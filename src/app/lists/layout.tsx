@@ -1,5 +1,5 @@
-import { Header } from './Header';
-import { Sidebar } from './Sidebar';
+import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
 
 export default function DashboardLayout({
   children,
@@ -13,7 +13,7 @@ export default function DashboardLayout({
       <div className='flex h-full items-start justify-center gap-[24px] px-[32px]'>
         <Sidebar />
 
-        <section className='grow-1 w-full max-w-[906px]'>New list</section>
+        <section className='grow-1 w-full max-w-[906px]'>{children}</section>
       </div>
     </section>
   );

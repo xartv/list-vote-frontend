@@ -13,7 +13,7 @@ import { CreateListItem } from './CreateListItem/CreateListItem';
 import { ListAssignment } from './ListAssignment';
 import { ListItem } from './ListItem';
 
-export function Dashboard() {
+export function Main() {
   const [createdListTitle, setCreatedListTitle] = useState<string>('');
 
   const { data: lists } = useLists();
@@ -27,7 +27,7 @@ export function Dashboard() {
       {lists.map(list => (
         <li
           key={list.id}
-          className='flex h-[500px] w-[300px] flex-col gap-2 rounded-lg bg-white p-4'
+          className='rounded-lg bg-white flex h-[500px] w-[300px] flex-col gap-2 p-4'
         >
           <div className='mx-auto'>{list.title}</div>
 
@@ -57,7 +57,7 @@ export function Dashboard() {
        */}
       <div
         key='create'
-        className='flex h-[500px] w-[300px] flex-col gap-2 rounded-lg bg-white p-4'
+        className='rounded-lg bg-white flex h-[500px] w-[300px] flex-col gap-2 p-4'
       >
         <input
           type='text'

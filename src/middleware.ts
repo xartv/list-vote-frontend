@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { DASHBOARD_PAGES, EXTERNAL_PAGES } from './config/pages-url.config';
+import { EXTERNAL_PAGES, LISTS_PAGE } from './config/pages-url.config';
 import { ETokens } from './constants/auth.constants';
 
 export async function middleware(request: NextRequest, response: NextResponse) {
@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const isAuthPage = url.includes('auth');
 
   if (isAuthPage && refresh) {
-    return NextResponse.redirect(new URL(DASHBOARD_PAGES.HOME, url));
+    return NextResponse.redirect(new URL(LISTS_PAGE.HOME, url));
   }
 
   if (isAuthPage) {

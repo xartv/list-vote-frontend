@@ -20,7 +20,7 @@ import { AUTH_ERROR_MESSAGES } from '@/constants/auth.constants';
 
 import { IAuthForm, TAuthErrorResponse } from '@/types/auth.types';
 
-import { DASHBOARD_PAGES } from '@/config/pages-url.config';
+import { LISTS_PAGE } from '@/config/pages-url.config';
 
 import { authService } from '@/services/auth.service';
 
@@ -61,7 +61,7 @@ export function Auth() {
   const onSuccess = () => {
     toast.success('You have successfully logged in');
     reset();
-    push(DASHBOARD_PAGES.HOME);
+    push(LISTS_PAGE.HOME);
   };
 
   const onError = (error: AxiosError<TAuthErrorResponse>) => {

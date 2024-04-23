@@ -1,14 +1,14 @@
-class DASHBOARD {
-  private root = '/dashboard';
+class LISTS {
+  private root = '/lists';
 
   HOME = this.root;
-  CREATED_LISTS = `${this.root}/created-lists`;
-  ACCESSED_LISTS = `${this.root}/accessed-lists`;
+  CREATE_LIST = `${this.root}/create`;
+  EDIT_LIST = `${this.root}/edit`;
 }
 
 class EXTERNAL {
   AUTH = '/auth';
 }
 
-export const DASHBOARD_PAGES = new DASHBOARD();
+export const LISTS_PAGE = new LISTS();
 export const EXTERNAL_PAGES = new EXTERNAL();
