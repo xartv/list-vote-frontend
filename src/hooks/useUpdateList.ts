@@ -14,7 +14,7 @@ export const useUpdateList = () => {
     mutationFn: (listId: string) => listService.updateList({ title }, listId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] });
-      router.push('/dashboard');
+      router.push('/lists');
     },
   });
 

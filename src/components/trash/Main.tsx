@@ -44,7 +44,7 @@ export function Main() {
 
           <CreateListItem listId={list.id} />
 
-          <Link href={`/dashboard/edit/${list.id}`}>Edit list</Link>
+          <Link href={`/lists/edit/${list.id}`}>Edit list</Link>
 
           <Button onClick={() => deleteList(list.id)}>Delete list</Button>
 
