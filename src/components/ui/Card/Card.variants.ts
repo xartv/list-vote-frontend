@@ -15,10 +15,15 @@ export const card = tv({
       light: 'bg-black-stroke',
       primary: 'bg-black-middle',
     },
+    isActive: {
+      true: 'bg-black-light border-green-light',
+      false: 'border-black-light',
+    },
   },
   defaultVariants: {
     bg: 'primary',
     width: 'fit',
     height: 'fit',
+    isActive: false,
   },
 });

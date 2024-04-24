@@ -1,14 +1,14 @@
 import { Metadata } from 'next';
 
-import { NO_INDEX_PAGE } from '@/constants/seo.constants';
+import { EditableListCard } from '@/components/EditableListCard';
 
-import { Edit } from './Edit';
+import { NO_INDEX_PAGE } from '@/constants/seo.constants';
 
 export const metadata: Metadata = {
   title: 'Edit',
   ...NO_INDEX_PAGE,
 };
 
-export default function EditPage() {
-  return <Edit />;
+export default function EditPage({ params }: { params: { id: string } }) {
+  return <EditableListCard listId={params.id} />;
 }

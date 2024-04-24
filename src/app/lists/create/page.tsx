@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
-import { NO_INDEX_PAGE } from '@/constants/seo.constants';
+import { EditableListCard } from '@/components/EditableListCard';
 
-import { Create } from './Create';
+import { NO_INDEX_PAGE } from '@/constants/seo.constants';
 
 export const metadata: Metadata = {
   title: 'Create',
@@ -10,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreatePage() {
-  return <Create />;
+  return <EditableListCard />;
 }

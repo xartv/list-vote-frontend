@@ -1,23 +1,31 @@
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { Circle } from 'lucide-react';
+import { redirect, useRouter } from 'next/navigation';
 
 import { IList } from '@/types/list.types';
+
+import { LISTS_PAGE } from '@/config/pages-url.config';
 
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 
 interface ListCardProps {
   list: IList;
+  isActive?: boolean;
 }
 
-export function ListCard({ list }: ListCardProps) {
+export function ListCard({ list, isActive }: ListCardProps) {
+  const router = useRouter();
+
   const createdAt = format(list.createdAt, 'd MMMM, yyyy', { locale: ru });
 
   return (
     <Card
       width='full'
-      className='border-1 flex flex-col gap-[32px] border border-green-light p-[16px]'
+      isActive={isActive}
+      className={`flex cursor-pointer flex-col gap-[32px] border p-[16px] transition-colors duration-150 hover:bg-black-stroke`}
+      onClick={() => router.push(`${LISTS_PAGE.EDIT_LIST}/${list.id}`)}
     >
       <div className='flex flex-col gap-[8px]'>
         <span className='text-[11px] leading-[13px] text-text-grey'>
@@ -48,7 +56,7 @@ export function ListCard({ list }: ListCardProps) {
             <Avatar
               key={accessUser.user.id}
               userName={accessUser.user.name}
-              className='border-[1px] border-white [&:not(:first-child)]:ml-[-8px]'
+              className='border-white border-[1px] [&:not(:first-child)]:ml-[-8px]'
             />
           ))}
         </div>

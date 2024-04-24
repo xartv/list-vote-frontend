@@ -7,6 +7,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: 'fit' | 'full';
   width?: 'fit' | 'full';
   bg?: 'light' | 'primary';
+  isActive?: boolean;
   className?: string;
 }
 
@@ -15,6 +16,7 @@ export function Card({
   height,
   width,
   bg,
+  isActive,
   className,
   ...restProps
 }: CardProps) {
@@ -25,6 +27,7 @@ export function Card({
         bg,
         height,
         width,
+        isActive,
         className,
       })}
     >

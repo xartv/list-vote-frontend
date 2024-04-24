@@ -26,12 +26,16 @@ const config: Config = {
       xs: '8px',
       sm: '16px',
       md: '20px',
+      circle: '50%',
     },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      boxShadow: {
+        button: '0px 0px 300px 88px rgba(0,255,17,0.15)',
       },
     },
   },

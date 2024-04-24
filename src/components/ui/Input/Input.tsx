@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { InputHTMLAttributes, forwardRef } from 'react';
 import type { ReactNode } from 'react';
 
+import { input } from './Input.variants';
+
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: any;
@@ -10,6 +12,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     input?: string;
   };
   postfix?: ReactNode;
+  mode?: 'border' | 'clear';
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -24,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       label,
       error,
       postfix,
+      mode,
       ...rest
     },
     ref,
@@ -47,10 +51,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             required={required}
             autoComplete={autoComplete}
-            className={clsx(
-              classNames.input,
-              'border-1 block w-full rounded-xs border-grey-stroke bg-black-middle py-1.5 ring-green placeholder:text-[16px] placeholder:text-text-grey focus:border-green  focus:ring-green',
-            )}
+            className={input({
+              mode,
+              className: classNames.input,
+            })}
             {...rest}
           />
 
