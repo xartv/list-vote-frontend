@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { Circle } from 'lucide-react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { IList } from '@/types/list.types';
 

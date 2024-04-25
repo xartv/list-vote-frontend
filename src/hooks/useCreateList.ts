@@ -5,12 +5,16 @@ import { listService } from '@/services/list.service';
 export const useCreateList = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: createList } = useMutation({
+  const {
+    mutate: createList,
+    data: createdList,
+    isSuccess: isSuccessListCreating,
+  } = useMutation({
     mutationFn: (title: string) => listService.createList({ title }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] });
     },
   });
 
-  return { createList };
+  return { createList, createdList, isSuccessListCreating };
 };

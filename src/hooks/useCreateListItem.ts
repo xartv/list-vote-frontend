@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { listItemService } from '@/services/list-item.service';
 
 export const useCreateListItem = () => {
-  const [createdItemTitle, setCreatedItemTitle] = useState<string>('');
-
   const queryClient = useQueryClient();
 
   const { mutate: createListItem } = useMutation({
@@ -16,5 +14,5 @@ export const useCreateListItem = () => {
     },
   });
 
-  return { createListItem, createdItemTitle, setCreatedItemTitle };
+  return { createListItem };
 };
