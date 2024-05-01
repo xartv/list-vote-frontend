@@ -16,21 +16,26 @@ export function Sidebar() {
 
   return (
     <section className='flex h-full w-[286px] flex-col gap-[16px]'>
-      <Button onClick={() => router.push(LISTS_PAGE.CREATE_LIST)}>
+      <Button
+        onClick={() => router.push(LISTS_PAGE.CREATE_LIST)}
+        className='flex-shrink-0'
+      >
         Создать заметку
       </Button>
 
-      {lists?.map(list => {
-        const isActive = list.id === params.id;
+      <div className='flex h-[calc(100vh-182px)] flex-col gap-[16px] overflow-auto'>
+        {lists?.map(list => {
+          const isActive = list.id === params.id;
 
-        return (
-          <ListCard
-            key={list.id}
-            list={list}
-            isActive={isActive}
-          />
-        );
-      })}
+          return (
+            <ListCard
+              key={list.id}
+              list={list}
+              isActive={isActive}
+            />
+          );
+        })}
+      </div>
     </section>
   );
 }

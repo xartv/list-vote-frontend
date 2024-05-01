@@ -5,6 +5,7 @@ import { button } from './Button.variants';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'full' | 'fit';
+  bg?: 'green' | 'grey';
   disabledUi?: boolean;
 }
 
@@ -14,6 +15,7 @@ export function Button({
   className,
   size,
   disabledUi,
+  bg,
   ...rest
 }: PropsWithChildren<ButtonProps>) {
   return (
@@ -22,6 +24,7 @@ export function Button({
       className={button({
         size: size,
         disabled: disabledUi,
+        bg,
         className,
       })}
       {...rest}

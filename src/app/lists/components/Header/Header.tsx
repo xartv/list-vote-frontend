@@ -14,7 +14,7 @@ const robotoFlex = Roboto_Flex({ subsets: ['latin'] });
 export function Header() {
   const pathname = usePathname();
 
-  const { data, isPending } = useProfile();
+  const { user, isPending } = useProfile();
 
   return (
     <section className='col-span-2 flex w-full items-center justify-between bg-black-middle px-[32px] py-[12px]'>
@@ -24,7 +24,7 @@ export function Header() {
       >
         List vote
       </Title>
-      {isPending ? <Loader /> : <Avatar userName={data?.name} />}
+      {isPending ? <Loader /> : <Avatar userName={user?.name} />}
     </section>
   );
 }

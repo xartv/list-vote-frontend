@@ -2,14 +2,19 @@
 
 import { Plus, Trash2, UserPlus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { v4 as uuid } from 'uuid';
+
+import { ERating, IListItem, TListItemRequest } from '@/types/list-item.types';
 
 import { LISTS_PAGE } from '@/config/pages-url.config';
 
 import { useCreateList } from '@/hooks/useCreateList';
 import { useDeleteList } from '@/hooks/useDeleteList';
+import { useProfile } from '@/hooks/useProfile';
 
+import { ListItem } from '../ListItem';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
@@ -20,6 +25,10 @@ interface EditableCardProps {
 
 export function EditableListCard({ listId }: EditableCardProps) {
   const router = useRouter();
+  const [createdListItems, setCreatedListItems] = useState<TListItemRequest[]>(
+    [],
+  );
+
   const {
     register,
     handleSubmit,
@@ -28,6 +37,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
   } = useForm<{ title: string }>();
   const { createList, createdList, isSuccessListCreating } = useCreateList();
   const { deleteList } = useDeleteList();
+  const { user } = useProfile();
 
   const isEdit = Boolean(listId);
   const title = watch('title');
@@ -38,6 +48,11 @@ export function EditableListCard({ listId }: EditableCardProps) {
     deleteList(listId ?? '');
     router.push(LISTS_PAGE.HOME);
   };
+
+  const handleAddListItem = () =>
+    setCreatedListItems(prev => [...prev, { title: '', rating: ERating.NULL }]);
+  const handleRemoveListItem = (index: number) =>
+    setCreatedListItems(prev => prev.filter((_, i) => i !== index));
 
   const onSubmit: SubmitHandler<{ title: string }> = async data => {
     createList(data.title);
@@ -83,24 +98,20 @@ export function EditableListCard({ listId }: EditableCardProps) {
       </div>
 
       <form
-        className='mt-[24px] flex flex-col gap-[24px] px-[32px]'
+        className='mt-[24px] px-[32px]'
         onSubmit={handleSubmit(onSubmit)}
       >
         <Input
           mode='clear'
           placeholder='Введите заголовок'
           classNames={{
-            input: `${errors.title && 'placeholder:text-green'}`,
+            input: `p-0 ${errors.title && 'placeholder:text-green'}`,
           }}
           {...register('title', { required: true })}
         />
 
-        {/*<textarea
-          placeholder='Введите текст'
-          className='border-1 block min-h-[152px] w-full resize-none rounded-xs border-grey-stroke bg-black-middle py-1.5 ring-green placeholder:text-[16px] placeholder:text-text-grey focus:border-green  focus:ring-green'
-        />*/}
-
         <Button
+          type='submit'
           size='fit'
           className='absolute bottom-[32px] left-[32px] px-[32px]'
           disabledUi={!title}
@@ -109,9 +120,20 @@ export function EditableListCard({ listId }: EditableCardProps) {
         </Button>
       </form>
 
+      <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px]'>
+        {createdListItems.map((listItem, index) => (
+          <ListItem
+            key={uuid()}
+            listItem={listItem}
+            onDelete={() => handleRemoveListItem(index)}
+          />
+        ))}
+      </div>
+
       <Button
         size='fit'
-        className='absolute bottom-[32px] right-[32px] h-[80px] w-[80px] rounded-circle shadow-button'
+        className='absolute bottom-[32px] right-[32px] h-[80px] w-[80px] cursor-pointer rounded-circle shadow-button transition-all duration-300 hover:scale-110'
+        onClick={handleAddListItem}
       >
         <Plus
           width={32}

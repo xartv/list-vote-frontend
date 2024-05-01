@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 
 export const button = tv({
-  base: 'flex justify-center text-[16px] leading-[20px] items-center rounded transition-colors duration-150 bg-green-light text-white hover:bg-green focus-visible:bg-green',
+  base: 'flex justify-center text-[16px] leading-[20px] items-center rounded transition-colors duration-150 text-white',
   variants: {
     size: {
       full: 'w-full',
@@ -14,9 +14,14 @@ export const button = tv({
       '44': 'h-[44px]',
       '52': 'h-[52px]',
     },
+    bg: {
+      green: 'bg-green-light hover:bg-green focus-visible:bg-green',
+      grey: 'bg-black-light hover:bg-black-stroke focus-visible:black-stroke',
+    },
   },
   defaultVariants: {
     size: 'full',
     height: '44',
+    bg: 'green',
   },
 });
