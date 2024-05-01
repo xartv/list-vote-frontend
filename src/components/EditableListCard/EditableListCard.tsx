@@ -3,16 +3,18 @@
 import { Plus, Trash2, UserPlus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
-import { ERating, IListItem, TListItemRequest } from '@/types/list-item.types';
+import { ERating, TListItemRequest } from '@/types/list-item.types';
 
 import { LISTS_PAGE } from '@/config/pages-url.config';
 
-import { useCreateList } from '@/hooks/useCreateList';
 import { useDeleteList } from '@/hooks/useDeleteList';
+import { useListById } from '@/hooks/useListById';
 import { useProfile } from '@/hooks/useProfile';
+import { useUpdateList } from '@/hooks/useUpdateList';
+import { useUpdateListDebounce } from '@/hooks/useUpdateListDebounce';
 
 import { ListItem } from '../ListItem';
 import { Button } from '../ui/Button';
@@ -28,19 +30,18 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const [createdListItems, setCreatedListItems] = useState<TListItemRequest[]>(
     [],
   );
-
+  const { list } = useListById(listId);
   const {
     register,
-    handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<{ title: string }>();
-  const { createList, createdList, isSuccessListCreating } = useCreateList();
+  } = useForm<{ title: string }>({
+    defaultValues: { title: list?.title },
+    values: { title: list?.title ?? '' },
+  });
   const { deleteList } = useDeleteList();
-  const { user } = useProfile();
 
-  const isEdit = Boolean(listId);
-  const title = watch('title');
+  useUpdateListDebounce({ watch, listId });
 
   const handleExit = () => router.push(LISTS_PAGE.HOME);
 
@@ -54,41 +55,26 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const handleRemoveListItem = (index: number) =>
     setCreatedListItems(prev => prev.filter((_, i) => i !== index));
 
-  const onSubmit: SubmitHandler<{ title: string }> = async data => {
-    createList(data.title);
-  };
-
-  useEffect(() => {
-    if (isSuccessListCreating)
-      router.push(`${LISTS_PAGE.EDIT_LIST}/${createdList?.id}`);
-  }, [isSuccessListCreating, createdList?.id, router]);
-
   return (
     <Card
       width='full'
       height='full'
       className='relative'
     >
-      <div
-        className={`flex items-center ${isEdit ? 'justify-between' : 'justify-end'} px-[32px] py-[16px]`}
-      >
-        {isEdit && (
-          <div className='flex items-center gap-[8px]'>
-            <UserPlus
-              width={20}
-              height={20}
-            />
-            <span className='text-[14px] leading-[16px]'>Пригласить</span>
-          </div>
-        )}
+      <div className={`flex items-center justify-between px-[32px] py-[16px]`}>
+        <div className='flex items-center gap-[8px]'>
+          <UserPlus
+            width={20}
+            height={20}
+          />
+          <span className='text-[14px] leading-[16px]'>Пригласить</span>
+        </div>
 
         <div className='flex items-center gap-[16px]'>
-          {isEdit && (
-            <Trash2
-              className='cursor-pointer'
-              onClick={handleDeleteList}
-            />
-          )}
+          <Trash2
+            className='cursor-pointer'
+            onClick={handleDeleteList}
+          />
 
           <X
             className='cursor-pointer'
@@ -97,10 +83,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
         </div>
       </div>
 
-      <form
-        className='mt-[24px] px-[32px]'
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className='mt-[24px] px-[32px]'>
         <Input
           mode='clear'
           placeholder='Введите заголовок'
@@ -109,15 +92,6 @@ export function EditableListCard({ listId }: EditableCardProps) {
           }}
           {...register('title', { required: true })}
         />
-
-        <Button
-          type='submit'
-          size='fit'
-          className='absolute bottom-[32px] left-[32px] px-[32px]'
-          disabledUi={!title}
-        >
-          Сохранить заметку
-        </Button>
       </form>
 
       <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px]'>

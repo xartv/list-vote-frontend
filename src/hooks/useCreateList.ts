@@ -10,7 +10,7 @@ export const useCreateList = () => {
     data: createdList,
     isSuccess: isSuccessListCreating,
   } = useMutation({
-    mutationFn: (title: string) => listService.createList({ title }),
+    mutationFn: (title?: string) => listService.createList({ title }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] });
     },

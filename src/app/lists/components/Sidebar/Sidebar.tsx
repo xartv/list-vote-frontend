@@ -1,12 +1,14 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { ListCard } from '@/components/ListCard';
 import { Button } from '@/components/ui/Button';
 
 import { LISTS_PAGE } from '@/config/pages-url.config';
 
+import { useCreateList } from '@/hooks/useCreateList';
 import { useLists } from '@/hooks/useLists';
 
 export function Sidebar() {
@@ -14,10 +16,19 @@ export function Sidebar() {
   const { data: lists } = useLists();
   const params = useParams();
 
+  const { createList, createdList, isSuccessListCreating } = useCreateList();
+
+  const handleCreateList = () => createList('');
+
+  useEffect(() => {
+    if (isSuccessListCreating)
+      router.push(`${LISTS_PAGE.EDIT_LIST}/${createdList?.id}`);
+  }, [isSuccessListCreating, createdList?.id, router]);
+
   return (
-    <section className='flex h-full w-[286px] flex-col gap-[16px]'>
+    <section className='flex h-full w-[286px] flex-shrink-0 flex-col gap-[16px]'>
       <Button
-        onClick={() => router.push(LISTS_PAGE.CREATE_LIST)}
+        onClick={handleCreateList}
         className='flex-shrink-0'
       >
         Создать заметку
