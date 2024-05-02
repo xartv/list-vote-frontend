@@ -94,10 +94,18 @@ export function EditableListCard({ listId }: EditableCardProps) {
       </form>
 
       <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px]'>
+        {list?.items.map(listItem => (
+          <ListItem
+            key={listItem.id}
+            listItem={listItem}
+          />
+        ))}
+
         {createdListItems.map((listItem, index) => (
           <ListItem
             key={uuid()}
             listItem={listItem}
+            isEdit
             onDelete={() => handleRemoveListItem(index)}
           />
         ))}

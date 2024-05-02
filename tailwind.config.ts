@@ -18,6 +18,7 @@ const config: Config = {
       pink: '#B867F8',
       blue: '#4A5BE6',
       red: '#EC3434',
+      yellow: '#FFD437',
       'text-white': '#FFFFFF',
       'text-grey': '#6C6C6C',
     },
