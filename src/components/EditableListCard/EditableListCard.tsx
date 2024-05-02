@@ -2,7 +2,7 @@
 
 import { Plus, Trash2, UserPlus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
@@ -12,8 +12,6 @@ import { LISTS_PAGE } from '@/config/pages-url.config';
 
 import { useDeleteList } from '@/hooks/useDeleteList';
 import { useListById } from '@/hooks/useListById';
-import { useProfile } from '@/hooks/useProfile';
-import { useUpdateList } from '@/hooks/useUpdateList';
 import { useUpdateListDebounce } from '@/hooks/useUpdateListDebounce';
 
 import { ListItem } from '../ListItem';
@@ -30,6 +28,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const [createdListItems, setCreatedListItems] = useState<TListItemRequest[]>(
     [],
   );
+  // TODO: use cachedData from lists query with queryClient, only if no cache - useListById
   const { list } = useListById(listId);
   const {
     register,

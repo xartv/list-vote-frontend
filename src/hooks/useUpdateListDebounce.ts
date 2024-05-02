@@ -27,8 +27,6 @@ export const useUpdateListDebounce = ({ listId, watch }: IUseListDebounce) => {
   );
 
   useEffect(() => {
-    console.log('work');
-
     const { unsubscribe } = watch(formData => debouncedUpdateList(formData));
 
     return () => {
