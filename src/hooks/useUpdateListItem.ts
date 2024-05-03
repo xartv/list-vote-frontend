@@ -4,7 +4,7 @@ import { TListItemRequest } from '@/types/list-item.types';
 
 import { listItemService } from '@/services/list-item.service';
 
-export const useUpdateListItem = (onSuccessFn: () => void) => {
+export const useUpdateListItem = () => {
   const queryClient = useQueryClient();
 
   const { mutate: updateListItem } = useMutation({
@@ -17,7 +17,6 @@ export const useUpdateListItem = (onSuccessFn: () => void) => {
     }) => listItemService.updateListItem(listItemId, newData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] });
-      onSuccessFn();
     },
   });
 

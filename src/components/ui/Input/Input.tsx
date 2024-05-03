@@ -7,6 +7,7 @@ import { input } from './Input.variants';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: any;
+  className?: string;
   classNames?: {
     label?: string;
     input?: string;
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       type,
       autoComplete,
       required,
+      className,
       classNames = {},
       label,
       error,
@@ -33,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
-      <div className='flex flex-col gap-2'>
+      <div className={`flex flex-col gap-2 ${className}`}>
         {Boolean(label) && (
           <label
             htmlFor={id}
@@ -53,7 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             autoComplete={autoComplete}
             className={input({
               mode,
-              className: classNames.input,
+              className: `${classNames.input} p-0`,
             })}
             {...rest}
           />

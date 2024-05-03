@@ -20,7 +20,7 @@ import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
 
 interface EditableCardProps {
-  listId?: string;
+  listId: string;
 }
 
 export function EditableListCard({ listId }: EditableCardProps) {
@@ -45,7 +45,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const handleExit = () => router.push(LISTS_PAGE.HOME);
 
   const handleDeleteList = () => {
-    deleteList(listId ?? '');
+    deleteList(listId);
     router.push(LISTS_PAGE.HOME);
   };
 
@@ -86,16 +86,14 @@ export function EditableListCard({ listId }: EditableCardProps) {
         <Input
           mode='clear'
           placeholder='Введите заголовок'
-          classNames={{
-            input: `p-0 ${errors.title && 'placeholder:text-green'}`,
-          }}
-          {...register('title', { required: true })}
+          {...register('title')}
         />
       </form>
 
       <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px]'>
         {list?.items.map(listItem => (
           <ListItem
+            listId={listId}
             key={listItem.id}
             listItem={listItem}
           />
@@ -104,6 +102,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
         {createdListItems.map((listItem, index) => (
           <ListItem
             key={uuid()}
+            listId={listId}
             listItem={listItem}
             isEdit
             onDelete={() => handleRemoveListItem(index)}

@@ -8,9 +8,7 @@ export interface IListItem extends IBase {
   listId: string;
 }
 
-export type TListItemRequest = Partial<
-  Pick<IListItem, 'title' | 'rating' | 'listId'>
->;
+export type TListItemRequest = Partial<Pick<IListItem, 'title' | 'listId'>>;
 
 export enum ERating {
   NULL = 0,
