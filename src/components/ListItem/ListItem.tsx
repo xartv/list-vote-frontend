@@ -61,6 +61,9 @@ export function ListItem({
               <Input
                 mode='clear'
                 className='flex-1'
+                classNames={{
+                  input: 'p-0',
+                }}
                 {...register('title')}
               />
               <div className='flex gap-[12px]'>

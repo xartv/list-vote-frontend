@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
-      <div className={`flex flex-col gap-2 ${className}`}>
+      <div className={`flex flex-col gap-[4px] ${className}`}>
         {Boolean(label) && (
           <label
             htmlFor={id}
@@ -55,7 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             autoComplete={autoComplete}
             className={input({
               mode,
-              className: `${classNames.input} p-0`,
+              className: `${classNames.input}`,
             })}
             {...rest}
           />

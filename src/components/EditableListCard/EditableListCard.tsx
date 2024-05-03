@@ -14,10 +14,12 @@ import { useDeleteList } from '@/hooks/useDeleteList';
 import { useListById } from '@/hooks/useListById';
 import { useUpdateListDebounce } from '@/hooks/useUpdateListDebounce';
 
+import { AssignListModal } from '../AssignListModal';
 import { ListItem } from '../ListItem';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
+import { Modal } from '../ui/Modal';
 
 interface EditableCardProps {
   listId: string;
@@ -28,6 +30,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const [createdListItems, setCreatedListItems] = useState<TListItemRequest[]>(
     [],
   );
+  const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
   // TODO: use cachedData from lists query with queryClient, only if no cache - useListById
   const { list } = useListById(listId);
   const {
@@ -54,6 +57,9 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const handleRemoveListItem = (index: number) =>
     setCreatedListItems(prev => prev.filter((_, i) => i !== index));
 
+  const handleAssignModalOpen = () => setIsAssignModalOpen(true);
+  const handleAssignModalClose = () => setIsAssignModalOpen(false);
+
   return (
     <Card
       width='full'
@@ -61,7 +67,10 @@ export function EditableListCard({ listId }: EditableCardProps) {
       className='relative'
     >
       <div className={`flex items-center justify-between px-[32px] py-[16px]`}>
-        <div className='flex items-center gap-[8px]'>
+        <div
+          className='flex cursor-pointer items-center gap-[8px]'
+          onClick={handleAssignModalOpen}
+        >
           <UserPlus
             width={20}
             height={20}
@@ -85,7 +94,11 @@ export function EditableListCard({ listId }: EditableCardProps) {
       <form className='mt-[24px] px-[32px]'>
         <Input
           mode='clear'
+          type='email'
           placeholder='Введите заголовок'
+          classNames={{
+            input: 'p-0',
+          }}
           {...register('title')}
         />
       </form>
@@ -120,6 +133,13 @@ export function EditableListCard({ listId }: EditableCardProps) {
           height={32}
         />
       </Button>
+
+      <AssignListModal
+        title='Совместный доступ к заметке'
+        isOpen={isAssignModalOpen}
+        listId={listId}
+        handleClose={handleAssignModalClose}
+      />
     </Card>
   );
 }

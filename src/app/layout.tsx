@@ -37,6 +37,8 @@ export default function RootLayout({
             duration={1500}
           />
         </Providers>
+
+        <div id='portal-wrapper'></div>
       </body>
     </html>
   );

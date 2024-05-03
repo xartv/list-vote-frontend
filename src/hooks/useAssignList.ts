@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { TUserListRequest } from '@/types/user-list.types';
 
@@ -11,6 +12,9 @@ export const useAssignList = () => {
     mutationFn: (dto: TUserListRequest) => userListService.assignList(dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] });
+    },
+    onError: () => {
+      toast.error('Такого юзера не существует (');
     },
   });
 
