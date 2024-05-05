@@ -11,6 +11,7 @@ export const useCreateListItem = (listId: string) => {
       listItemService.createListItem({ title, listId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
+      queryClient.invalidateQueries({ queryKey: ['lists'] });
     },
   });
 

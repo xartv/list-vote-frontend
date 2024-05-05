@@ -33,15 +33,13 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
   // TODO: use cachedData from lists query with queryClient, only if no cache - useListById
   const { list } = useListById(listId);
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useForm<{ title: string }>({
+  const { register, watch } = useForm<{ title: string }>({
     defaultValues: { title: list?.title },
     values: { title: list?.title ?? '' },
   });
   const { deleteList } = useDeleteList();
+
+  const [listItemKeys, setListItemKeys] = useState<string[]>([]);
 
   useUpdateListDebounce({ watch, listId });
 
@@ -52,13 +50,20 @@ export function EditableListCard({ listId }: EditableCardProps) {
     router.push(LISTS_PAGE.HOME);
   };
 
-  const handleAddListItem = () =>
+  const handleAddListItem = () => {
     setCreatedListItems(prev => [...prev, { title: '', rating: ERating.NULL }]);
-  const handleRemoveListItem = (index: number) =>
-    setCreatedListItems(prev => prev.filter((_, i) => i !== index));
-
+    setListItemKeys(prevKeys => [...prevKeys, uuid()]);
+  };
+  const handleRemoveListItem = (index: number) => {
+    setCreatedListItems(prevListItems =>
+      prevListItems.filter((_, i) => i !== index),
+    );
+    setListItemKeys(prevKeys => prevKeys.filter((_, i) => i !== index));
+  };
   const handleAssignModalOpen = () => setIsAssignModalOpen(true);
   const handleAssignModalClose = () => setIsAssignModalOpen(false);
+
+  console.log(listItemKeys);
 
   return (
     <Card
@@ -114,7 +119,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
 
         {createdListItems.map((listItem, index) => (
           <ListItem
-            key={uuid()}
+            key={listItemKeys[index]}
             listId={listId}
             listItem={listItem}
             isEdit
