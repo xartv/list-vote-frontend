@@ -20,14 +20,12 @@ import { Input } from '../ui/Input';
 interface ListItemProps {
   listId: string;
   listItem: Partial<IListItem>;
-  index?: number;
   onDelete?: () => void;
   isEdit?: boolean;
 }
 
 export function ListItem({
   listItem,
-  index,
   listId,
   isEdit,
   onDelete,
@@ -49,7 +47,10 @@ export function ListItem({
 
   const [isRatingMode, setIsRatingMode] = useState(false);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
+    if (!listItem.rating) return null;
+    return listItem.rating - 1;
+  });
 
   useUpdateListItemDebounce({ watch, listItemId: listItem?.id });
 

@@ -63,8 +63,6 @@ export function EditableListCard({ listId }: EditableCardProps) {
   const handleAssignModalOpen = () => setIsAssignModalOpen(true);
   const handleAssignModalClose = () => setIsAssignModalOpen(false);
 
-  console.log(listItemKeys);
-
   return (
     <Card
       width='full'
