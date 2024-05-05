@@ -56,8 +56,8 @@ export function ListCard({ list, isActive }: ListCardProps) {
         <div className='flex'>
           {list.accessUsers.map(accessUser => (
             <Avatar
-              key={accessUser.id}
-              userName={accessUser.name}
+              key={accessUser.user.id}
+              userName={accessUser.user.name}
               className='border-white border-[1px] [&:not(:first-child)]:ml-[-8px]'
             />
           ))}
