@@ -1,4 +1,5 @@
 import { IBase } from './base.types';
+import { IRatingMark } from './rating-mark.types';
 
 export interface IListItem extends IBase {
   title: string;
@@ -6,6 +7,8 @@ export interface IListItem extends IBase {
 
   authorId: string;
   listId: string;
+
+  ratingMarks: IRatingMark[];
 }
 
 export type TListItemRequest = Partial<Pick<IListItem, 'title' | 'listId'>>;

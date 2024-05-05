@@ -5,8 +5,13 @@ import { useForm } from 'react-hook-form';
 import { IListItem } from '@/types/list-item.types';
 
 import { useCreateListItem } from '@/hooks/useCreateListItem';
+import { useCreateRatingMark } from '@/hooks/useCreateRatingMark';
 import { useDeleteListItem } from '@/hooks/useDeleteListItem';
+import { useProfile } from '@/hooks/useProfile';
 import { useUpdateListItemDebounce } from '@/hooks/useUpdateListItemDebounce';
+import { useUpdateRatingMark } from '@/hooks/useUpdateRatingMark';
+
+import { numWord } from '@/utils/utils';
 
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
@@ -38,8 +43,19 @@ export function ListItem({
   });
   const { createListItem } = useCreateListItem(listId);
   const { deleteListItem } = useDeleteListItem(listId);
+  const { createRatingMark } = useCreateRatingMark(listId);
+  const { updateRatingMark } = useUpdateRatingMark(listId);
+  const { user } = useProfile();
+
+  const [isRatingMode, setIsRatingMode] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useUpdateListItemDebounce({ watch, listItemId: listItem?.id });
+
+  const authUserRatingMark = listItem?.ratingMarks?.find(
+    ratingMark => ratingMark.authorId === user?.id,
+  );
 
   const handleClickEdit = () => setFocus('title');
   const handleCreateListItem = () => {
@@ -47,6 +63,26 @@ export function ListItem({
     onDelete?.();
   };
   const handleDeleteListItem = () => deleteListItem(listItem?.id ?? '');
+  const handleRatingMode = () => setIsRatingMode(prev => !prev);
+  const handleStarMouseOver = (index: number) => setHoverIndex(index);
+  const handleStarMouseLeave = () => setHoverIndex(null);
+  const handleStarSelect = (index: number) => {
+    if (!listItem.id) return;
+
+    setSelectedIndex(index);
+
+    if (authUserRatingMark) {
+      updateRatingMark({
+        listItemId: listItem.id,
+        value: index + 1,
+        ratingMarkId: authUserRatingMark.id,
+      });
+    } else {
+      createRatingMark({ listItemId: listItem.id, value: index + 1 });
+    }
+
+    setIsRatingMode(false);
+  };
 
   return (
     <>
@@ -84,25 +120,70 @@ export function ListItem({
               </div>
             </div>
 
-            <p className='flex items-center gap-[8px]'>
-              <span className='text-[14px] leading-[16px] text-yellow'>
-                {listItem.rating}
-              </span>
-              <span className='text-[12px] leading-[14px] text-text-grey'>
-                здесь будет кол-во оценок
-              </span>
-            </p>
+            {Boolean(listItem?.ratingMarks?.length) && (
+              <p className='flex items-center gap-[8px]'>
+                <span className='text-[14px] leading-[16px] text-yellow'>
+                  {listItem.rating}
+                </span>
+                <span className='text-[12px] leading-[14px] text-text-grey'>
+                  {listItem.ratingMarks?.length}
+                  {numWord(
+                    ['оценка', 'оценки', 'оценок'],
+                    listItem.ratingMarks?.length,
+                  )}
+                </span>
+              </p>
+            )}
           </div>
 
-          <div className='flex w-full justify-end bg-black p-[16px]'>
+          <div
+            className={`flex w-full ${isRatingMode ? 'justify-between' : 'justify-end'} bg-black p-[16px]`}
+          >
+            {isRatingMode && (
+              <div className='flex items-center gap-[4px]'>
+                {new Array(5).fill(null).map((_, index) => {
+                  const isHovered = hoverIndex !== null && index <= hoverIndex;
+                  const isSelected =
+                    selectedIndex !== null && index <= selectedIndex;
+
+                  const starColor = isHovered
+                    ? '#17C047'
+                    : isSelected
+                      ? '#0EA338'
+                      : '#6C6C6C';
+
+                  return (
+                    <Star
+                      key={index}
+                      size={24}
+                      color={starColor}
+                      className='cursor-pointer'
+                      onMouseOver={() => handleStarMouseOver(index)}
+                      onMouseLeave={handleStarMouseLeave}
+                      onClick={() => handleStarSelect(index)}
+                    />
+                  );
+                })}
+              </div>
+            )}
+
             <p className='flex items-center gap-[10px] text-[14px] leading-[14px]'>
-              <span className='cursor-pointer text-green-light'>
-                Изменить оценку
+              <span
+                className={`cursor-pointer font-semibold ${isRatingMode ? 'text-text-grey' : 'text-green-light'}`}
+                onClick={handleRatingMode}
+              >
+                {authUserRatingMark && !isRatingMode
+                  ? 'Изменить оценку'
+                  : isRatingMode
+                    ? 'Отмена'
+                    : 'Оценить'}
               </span>
-              <span className='flex items-center gap-[4px] text-text-grey'>
-                <Star size={16} />
-                <span>Здесь будет моя оценка</span>
-              </span>
+              {Boolean(authUserRatingMark) && !isRatingMode && (
+                <span className='flex items-center gap-[4px] text-text-grey'>
+                  <Star size={16} />
+                  <span className=''>{authUserRatingMark?.value}</span>
+                </span>
+              )}
             </p>
           </div>
         </Card>

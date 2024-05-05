@@ -8,13 +8,13 @@ export const useCreateRatingMark = (listId: string) => {
   const queryClient = useQueryClient();
 
   const { mutate: createRatingMark } = useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       listItemId,
       value,
     }: {
       listItemId: string;
       value: ERating;
-    }) => ratingMarkService.createRatingMark({ listItemId, value }),
+    }) => await ratingMarkService.createRatingMark({ listItemId, value }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
     },

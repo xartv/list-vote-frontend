@@ -8,7 +8,7 @@ export const useUpdateRatingMark = (listId: string) => {
   const queryClient = useQueryClient();
 
   const { mutate: updateRatingMark } = useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       listItemId,
       value,
       ratingMarkId,
@@ -17,7 +17,10 @@ export const useUpdateRatingMark = (listId: string) => {
       ratingMarkId: string;
       value: ERating;
     }) =>
-      ratingMarkService.updateRatingMark({ listItemId, value }, ratingMarkId),
+      await ratingMarkService.updateRatingMark(
+        { listItemId, value },
+        ratingMarkId,
+      ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
     },
