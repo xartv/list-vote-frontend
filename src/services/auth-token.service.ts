@@ -12,11 +12,13 @@ export const getAccessToken = () => {
 export const saveAccessTokenStorage = (accessToken: string) => {
   Cookies.set(ETokens.ACCESS_TOKEN, accessToken, {
     domain: COOKIE_DOMAIN,
-    sameSite: 'strict',
+    sameSite: 'lax',
     expires: 1,
   });
 };
 
 export const removeFromStorage = () => {
+  console.log(Cookies.get(ETokens.ACCESS_TOKEN));
+
   Cookies.remove(ETokens.ACCESS_TOKEN);
 };
