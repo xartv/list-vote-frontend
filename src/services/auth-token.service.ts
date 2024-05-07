@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 import { ETokens } from '@/constants/auth.constants';
 
-const BASE_URL = process.env.BASE_URL ?? 'localhost';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost';
 
 export const getAccessToken = () => {
   const accessToken = Cookies.get(ETokens.ACCESS_TOKEN);

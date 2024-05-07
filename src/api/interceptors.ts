@@ -7,12 +7,12 @@ import {
 } from '@/services/auth-token.service';
 import { authService } from '@/services/auth.service';
 
-const BASE_URL = process.env.BASE_URL ?? 'localhost';
-const API_PORT = process.env.API_PORT ?? '3002';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost';
+const API_PORT = process.env.NEXT_PUBLIC_API_PORT ?? '3002';
 
-console.log(process.env.BASE_URL);
+console.log(process.env.NEXT_PUBLIC_BASE_URL);
 console.log(BASE_URL);
-console.log(process.env.API_PORT);
+console.log(process.env.NEXT_PUBLIC_API_PORT);
 console.log(API_PORT);
 
 const options: CreateAxiosDefaults = {
