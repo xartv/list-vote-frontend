@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 import { ETokens } from '@/constants/auth.constants';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost';
+const COOKIE_DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN ?? 'localhost';
 
 export const getAccessToken = () => {
   const accessToken = Cookies.get(ETokens.ACCESS_TOKEN);
@@ -11,7 +11,7 @@ export const getAccessToken = () => {
 
 export const saveAccessTokenStorage = (accessToken: string) => {
   Cookies.set(ETokens.ACCESS_TOKEN, accessToken, {
-    domain: BASE_URL,
+    domain: COOKIE_DOMAIN,
     sameSite: 'strict',
     expires: 1,
   });
