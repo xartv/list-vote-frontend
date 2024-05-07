@@ -35,8 +35,6 @@ class AuthService {
   async logout() {
     const response = await axiosBase.post<boolean>(`${this.BASE_URL}/logout`);
 
-    console.log(response.data);
-
     if (response.data) removeFromStorage();
 
     return response;

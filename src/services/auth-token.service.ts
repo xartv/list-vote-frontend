@@ -18,8 +18,6 @@ export const saveAccessTokenStorage = (accessToken: string) => {
 };
 
 export const removeFromStorage = () => {
-  console.log(Cookies.get(ETokens.ACCESS_TOKEN));
-
   Cookies.remove(ETokens.ACCESS_TOKEN, {
     path: '/',
     domain: COOKIE_DOMAIN,
