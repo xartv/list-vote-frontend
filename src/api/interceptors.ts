@@ -16,7 +16,7 @@ console.log(process.env.NEXT_PUBLIC_API_PORT);
 console.log(API_PORT);
 
 const options: CreateAxiosDefaults = {
-  baseURL: `http://${BASE_URL}:${API_PORT}/api`,
+  baseURL: `${BASE_URL}:${API_PORT}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
