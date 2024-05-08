@@ -30,7 +30,7 @@ NEXT_PUBLIC_API_PORT=3002
 NEXT_PUBLIC_COOKIE_DOMAIN=localhost
 ```
 
-3. NEXT_PUBLIC_BASE_URL, NEXT_PUBLIC_API_PORT and NEXT_PUBLIC_PROTOCOL are the URL, PORT and PROTOCOL of the running backend. NEXT_PUBLIC_COOKIE_DOMAIN is frontend domain for setting cookie. If you haven't changed anything during its launch, the values mentioned above should default to suitable settings. Otherwise, you will need to adjust them.
+3. NEXT_PUBLIC_BASE_URL, NEXT_PUBLIC_API_PORT and NEXT_PUBLIC_PROTOCOL are the URL, PORT and PROTOCOL of the running backend. NEXT_PUBLIC_COOKIE_DOMAIN is domain for setting cookie. If you haven't changed anything during its launch, the values mentioned above should default to suitable settings. Otherwise, you will need to adjust them.
 
 4. Alright, all that's left is to start the application
 ```bash
