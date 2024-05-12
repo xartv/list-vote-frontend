@@ -139,7 +139,7 @@ export function Auth() {
         <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
 
         <form
-          className='mt-10 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm'
+          className='mt-10 w-full space-y-6'
           action='#'
           method='POST'
           onSubmit={handleSubmit(onSubmit)}

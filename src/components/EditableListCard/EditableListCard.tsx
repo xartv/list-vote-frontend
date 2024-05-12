@@ -67,7 +67,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
     <Card
       width='full'
       height='full'
-      className='relative'
+      className='relative sm:h-auto'
     >
       <div className={`flex items-center justify-between px-[32px] py-[16px]`}>
         <div
@@ -106,7 +106,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
         />
       </form>
 
-      <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px]'>
+      <div className='scro mt-[24px] flex h-[600px] flex-col gap-[20px] overflow-auto px-[32px] sm:h-[400px]'>
         {list?.items.map(listItem => (
           <ListItem
             listId={listId}

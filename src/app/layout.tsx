@@ -28,7 +28,7 @@ export default function RootLayout({
       lang='en'
       className='h-full'
     >
-      <body className={clsx(roboto.className, 'h-full')}>
+      <body className={clsx(roboto.className, 'h-full sm:overflow-auto')}>
         <Providers>
           {children}
           <Toaster
