@@ -136,7 +136,7 @@ export function Auth() {
   return (
     <section className='flex min-h-full  items-center justify-center'>
       <Card className='flex min-h-[400px] w-[500px] flex-col items-center justify-center p-12'>
-        <Title element='h1'>{isLoginForm ? 'Sign in' : 'Register'}</Title>
+        <Title element='h1'>{isLoginForm ? 'Войти' : 'Регистрация'}</Title>
 
         <form
           className='mt-10 w-full space-y-6'
@@ -147,7 +147,7 @@ export function Auth() {
           <Input
             id='email'
             type='email'
-            label='Email address'
+            label='Email'
             {...register('email', {
               required: 'Email is required',
             })}
@@ -157,9 +157,9 @@ export function Auth() {
           <Input
             id='password'
             type={passwordType}
-            label='Password'
+            label='Пароль'
             {...register('password', {
-              required: 'Password is required',
+              required: 'Пароль обязателен',
             })}
             error={errors.password}
             postfix={passwordsPostfix(passwordType, setPasswordType)}
@@ -169,7 +169,7 @@ export function Auth() {
             <Input
               id='passwordConfirm'
               type={confirmPasswordType}
-              label='Confirm password'
+              label='Подтвердите пароль'
               onChange={e => setPasswordConfirm(e.target.value)}
               postfix={passwordsPostfix(
                 confirmPasswordType,
@@ -183,6 +183,14 @@ export function Auth() {
               password={password}
               minLength={6}
               onChangeScore={score => setPasswordStrength(score)}
+              scoreWords={[
+                'Слишком простой пароль',
+                'Слишком простой пароль',
+                'Средний',
+                'Хороший',
+                'Сложный',
+              ]}
+              shortScoreWord={'Слишком простой пароль'}
             />
           )}
 
@@ -193,16 +201,14 @@ export function Auth() {
               setIsLoginForm(prev => !prev);
             }}
           >
-            {isLoginForm
-              ? "Don't have an account?"
-              : 'Already have an account?'}
+            {isLoginForm ? 'Еще не зарегистрированы?' : 'Уже есть аккаунт?'}
           </Text>
 
           <Button
             type='submit'
             disabledUi={isSubmitButtonDisabled}
           >
-            {isLoginForm ? 'Sign in' : 'Sign up'}
+            {isLoginForm ? 'Войти' : 'Зарегистрироваться'}
           </Button>
         </form>
       </Card>
