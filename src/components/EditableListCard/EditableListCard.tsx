@@ -128,13 +128,15 @@ export function EditableListCard({ listId }: EditableCardProps) {
 
       <Button
         size='fit'
-        className='absolute bottom-[32px] right-[32px] h-[80px] w-[80px] cursor-pointer rounded-circle shadow-button transition-all duration-300 hover:scale-110'
+        className='absolute bottom-[32px] right-[32px] h-[80px] w-[80px] cursor-pointer rounded-circle shadow-button transition-all duration-300 hover:scale-110 sm:static sm:mt-[16px] sm:flex sm:h-[52px] sm:w-full sm:gap-[8px] sm:rounded sm:hover:scale-100'
         onClick={handleAddListItem}
       >
         <Plus
           width={32}
           height={32}
         />
+
+        <span className='hidden sm:block'>Добавить идею</span>
       </Button>
 
       <AssignListModal
