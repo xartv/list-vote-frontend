@@ -7,6 +7,8 @@ import { IList } from '@/types/list.types';
 
 import { LISTS_PAGE } from '@/config/pages-url.config';
 
+import { numWord } from '@/utils/utils';
+
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 
@@ -49,7 +51,8 @@ export function ListCard({ list, isActive }: ListCardProps) {
             />
           </div>
           <span className='text-[12px] leading-[14px] text-text-grey'>
-            {list.items.length} идей
+            {list.items.length}{' '}
+            {numWord(['идея', 'идеи', 'идей'], list.items.length)}
           </span>
         </div>
 

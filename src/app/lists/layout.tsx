@@ -13,7 +13,7 @@ export default function ListsLayout({
       <div className='flex h-full items-start justify-center gap-[24px] px-[32px] sm:h-auto sm:flex-col'>
         <Sidebar />
 
-        <section className='grow-1 h-[calc(100vh-122px)] w-full max-w-[906px] sm:h-auto sm:order-1'>
+        <section className='grow-1 relative h-[calc(100vh-122px)] w-full max-w-[906px] sm:order-1 sm:h-auto'>
           {children}
         </section>
       </div>

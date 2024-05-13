@@ -1,5 +1,5 @@
 export function numWord(words: string[], value?: number) {
-  if (!value) return words[1];
+  if (!value) return words[2];
 
   value = Math.abs(value) % 100;
   var num = value % 10;

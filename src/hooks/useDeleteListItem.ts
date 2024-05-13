@@ -10,6 +10,7 @@ export const useDeleteListItem = (listId: string) => {
       listItemService.deleteListItem(listItemId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
+      queryClient.invalidateQueries({ queryKey: ['lists'] });
     },
   });
 

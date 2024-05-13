@@ -127,7 +127,7 @@ export function ListItem({
                   {listItem.rating}
                 </span>
                 <span className='text-[12px] leading-[14px] text-text-grey'>
-                  {listItem.ratingMarks?.length}
+                  {listItem.ratingMarks?.length}{' '}
                   {numWord(
                     ['оценка', 'оценки', 'оценок'],
                     listItem.ratingMarks?.length,
