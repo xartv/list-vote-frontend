@@ -45,18 +45,18 @@ export function ListItem({
   const { updateRatingMark } = useUpdateRatingMark(listId);
   const { user } = useProfile();
 
-  const [isRatingMode, setIsRatingMode] = useState(false);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
-    if (!listItem.rating) return null;
-    return listItem.rating - 1;
-  });
-
-  useUpdateListItemDebounce({ watch, listItemId: listItem?.id });
-
   const authUserRatingMark = listItem?.ratingMarks?.find(
     ratingMark => ratingMark.authorId === user?.id,
   );
+
+  const [isRatingMode, setIsRatingMode] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
+    if (!authUserRatingMark) return null;
+    return authUserRatingMark.value - 1;
+  });
+
+  useUpdateListItemDebounce({ watch, listItemId: listItem?.id });
 
   const handleClickEdit = () => setFocus('title');
   const handleCreateListItem = () => {
