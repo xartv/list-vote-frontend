@@ -7,7 +7,7 @@ Backend you can find here https://github.com/xartv/list-vote-backend
 
 **Stack: Typescript, Next.js, Tanstack Query, Tailwind**
 
-Demo of full project you can find here https://list-vote-frontend-production.up.railway.app/
+Demo of full project you can find here listvote.ru
 
 ## Installation and running
 
