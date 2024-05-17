@@ -26,7 +26,7 @@ export function AssignListModal({
   return (
     <Modal
       {...restProps}
-      classNames={{ content: 'w-[376px]' }}
+      classNames={{ content: 'w-[376px]', title: 'font-montserrat' }}
     >
       <form
         className='mt-[24px] flex flex-col gap-[24px]'
@@ -45,6 +45,7 @@ export function AssignListModal({
         <Button
           disabled={!watch('email')}
           disabledUi={!watch('email')}
+          className='font-montserrat'
         >
           Отправить
         </Button>

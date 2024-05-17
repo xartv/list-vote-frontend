@@ -22,6 +22,7 @@ body {
   @apply overflow-hidden;
   color: theme('colors.text-white');
   background: theme('colors.black');
+  font-family: var(--font-roboto);
 }
 
 @layer utilities {

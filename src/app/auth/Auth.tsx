@@ -136,7 +136,12 @@ export function Auth() {
   return (
     <section className='flex min-h-full  items-center justify-center'>
       <Card className='flex min-h-[400px] w-[500px] flex-col items-center justify-center p-12'>
-        <Title element='h1'>{isLoginForm ? 'Войти' : 'Регистрация'}</Title>
+        <Title
+          element='h1'
+          className='font-montserrat'
+        >
+          {isLoginForm ? 'Войти' : 'Регистрация'}
+        </Title>
 
         <form
           className='mt-10 w-full space-y-6'
@@ -195,7 +200,7 @@ export function Auth() {
           )}
 
           <Text
-            className='cursor-pointer underline underline-offset-2'
+            className='cursor-pointer font-thin underline underline-offset-4'
             onClick={() => {
               resetForm();
               setIsLoginForm(prev => !prev);
@@ -207,6 +212,7 @@ export function Auth() {
           <Button
             type='submit'
             disabledUi={isSubmitButtonDisabled}
+            className='font-montserrat'
           >
             {isLoginForm ? 'Войти' : 'Зарегистрироваться'}
           </Button>

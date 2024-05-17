@@ -9,6 +9,7 @@ export interface ModalProps {
   title: string;
   classNames?: {
     content?: string;
+    title?: string;
   };
   handleClose: () => void;
 }
@@ -29,7 +30,9 @@ export function Modal({
           className={`fixed z-10 rounded-md border-2 border-black-light bg-black-middle  p-[24px] ${classNames.content}`}
         >
           <div className='flex gap-[24px]'>
-            <h2 className='text-[24px] font-bold leading-[28px] text-text-white'>
+            <h2
+              className={`text-[24px] font-bold leading-[28px] text-text-white ${classNames.title}`}
+            >
               {title}
             </h2>
             <X

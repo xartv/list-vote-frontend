@@ -29,12 +29,12 @@ export function Sidebar() {
     <section className='flex h-full w-[286px] flex-shrink-0 flex-col gap-[16px] sm:order-2 sm:h-auto sm:w-full'>
       <Button
         onClick={handleCreateList}
-        className='flex-shrink-0'
+        className='font-montserrat flex-shrink-0 font-semibold'
       >
         Создать заметку
       </Button>
 
-      <div className='flex h-[calc(100vh-182px)] flex-col gap-[16px] overflow-auto sm:h-auto'>
+      <div className='flex h-[calc(100vh-182px)] flex-col gap-[16px]  overflow-auto sm:h-auto'>
         {lists?.map(list => {
           const isActive = list.id === params.id;
 

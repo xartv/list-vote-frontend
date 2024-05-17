@@ -26,7 +26,7 @@ export function ListCard({ list, isActive }: ListCardProps) {
     <Card
       width='full'
       isActive={isActive}
-      className={`flex cursor-pointer flex-col gap-[12px] border p-[16px] transition-colors duration-150 hover:bg-black-stroke`}
+      className={`flex cursor-pointer flex-col gap-[12px] border p-[16px] font-medium transition-colors duration-150 hover:bg-black-stroke`}
       onClick={() => router.push(`${LISTS_PAGE.EDIT_LIST}/${list.id}`)}
     >
       <div className='flex flex-col gap-[8px]'>
@@ -34,7 +34,7 @@ export function ListCard({ list, isActive }: ListCardProps) {
           {createdAt}
         </span>
 
-        <h2 className='line-clamp-2 h-[42px] text-[17px] font-bold leading-[21px]'>
+        <h2 className='font-montserrat line-clamp-2 h-[42px] text-[17px] font-bold leading-[21px]'>
           {list.title}
         </h2>
       </div>

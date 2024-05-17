@@ -1,6 +1,8 @@
 import { clsx } from 'clsx';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { Roboto_Flex } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { Toaster } from 'sonner';
 
 import { SITE_NAME } from '@/constants/seo.constants';
@@ -8,7 +10,15 @@ import { SITE_NAME } from '@/constants/seo.constants';
 import './globals.scss';
 import { Providers } from './providers';
 
-const roboto = Roboto({ weight: '400', subsets: ['latin'] });
+const roboto = Roboto_Flex({
+  subsets: ['latin'],
+  variable: '--font-roboto',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +38,13 @@ export default function RootLayout({
       lang='en'
       className='h-full'
     >
-      <body className={clsx(roboto.className, 'h-full sm:overflow-auto')}>
+      <body
+        className={clsx(
+          roboto.variable,
+          montserrat.variable,
+          'h-full sm:overflow-auto',
+        )}
+      >
         <Providers>
           {children}
           <Toaster

@@ -99,7 +99,7 @@ export function ListItem({
                 mode='clear'
                 className='flex-1'
                 classNames={{
-                  input: 'p-0',
+                  input: 'p-0 font-light',
                 }}
                 {...register('title')}
               />
@@ -170,7 +170,7 @@ export function ListItem({
 
             <p className='flex items-center gap-[10px] text-[14px] leading-[14px]'>
               <span
-                className={`cursor-pointer font-semibold ${isRatingMode ? 'text-text-grey' : 'text-green-light'}`}
+                className={`cursor-pointer font-semibold ${isRatingMode ? 'text-text-grey' : 'text-green-light'} font-montserrat`}
                 onClick={handleRatingMode}
               >
                 {authUserRatingMark && !isRatingMode
@@ -195,7 +195,7 @@ export function ListItem({
           <textarea
             {...register('creatingTitle')}
             placeholder='Введите текст'
-            className='border-1 block min-h-[132px] w-full resize-none rounded-xs border-grey-stroke bg-black-middle py-1.5 ring-green placeholder:text-[16px] placeholder:text-text-grey focus:border-green  focus:ring-green'
+            className='border-1 block min-h-[132px] w-full resize-none rounded-xs border-grey-stroke bg-black-middle py-1.5 font-light ring-green placeholder:text-[16px] placeholder:text-text-grey  focus:border-green focus:ring-green'
           />
 
           <div className='mt-[12px] flex justify-end gap-[14px]'>

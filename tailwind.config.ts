@@ -33,6 +33,11 @@ const config: Config = {
       md: '20px',
       circle: '50%',
     },
+    fontFamily: {
+      robotoFlex: 'var(--font-roboto-flex)',
+      roboto: 'var(--font-roboto)',
+      montserrat: 'var(--font-montserrat)',
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

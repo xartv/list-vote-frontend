@@ -19,7 +19,6 @@ import { ListItem } from '../ListItem';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
-import { Modal } from '../ui/Modal';
 
 interface EditableCardProps {
   listId: string;
@@ -67,7 +66,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
     <Card
       width='full'
       height='full'
-      className='relative sm:h-auto'
+      className='relative font-medium sm:h-auto'
     >
       <div className={`flex items-center justify-between px-[32px] py-[16px]`}>
         <div
@@ -100,7 +99,7 @@ export function EditableListCard({ listId }: EditableCardProps) {
           type='email'
           placeholder='Введите заголовок'
           classNames={{
-            input: 'p-0',
+            input: 'p-0 font-montserrat',
           }}
           {...register('title')}
         />

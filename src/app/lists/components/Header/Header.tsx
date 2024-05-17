@@ -1,7 +1,6 @@
 'use client';
 
 import { LogOut } from 'lucide-react';
-import { Roboto_Flex } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 
 import { Avatar } from '@/components/ui/Avatar';
@@ -13,8 +12,6 @@ import { LISTS_PAGE } from '@/config/pages-url.config';
 import { useLogout } from '@/hooks/useLogout';
 import { useProfile } from '@/hooks/useProfile';
 
-const robotoFlex = Roboto_Flex({ subsets: ['latin'] });
-
 export function Header() {
   const router = useRouter();
 
@@ -25,10 +22,10 @@ export function Header() {
   const handleLogout = () => logout();
 
   return (
-    <section className='col-span-2 flex w-full items-center justify-between bg-black-middle px-[32px] py-[12px]'>
+    <section className='col-span-2 flex w-full items-center justify-between bg-black-middle px-[32px] py-[12px] font-bold'>
       <Title
         element='h1'
-        className={`cursor-pointer text-[20px] font-black leading-[24px] ${robotoFlex.className}`}
+        className={`font-robotoFlex cursor-pointer text-[20px] font-black leading-[24px]`}
         onClick={() => router.push(LISTS_PAGE.HOME)}
       >
         List vote
