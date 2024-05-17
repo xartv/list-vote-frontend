@@ -23,6 +23,7 @@ export const useUpdateRatingMark = (listId: string) => {
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
     },
   });
 

@@ -17,6 +17,7 @@ export const useCreateRatingMark = (listId: string) => {
     }) => await ratingMarkService.createRatingMark({ listItemId, value }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['list', listId] });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
     },
   });
 
