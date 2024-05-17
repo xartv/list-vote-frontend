@@ -10,8 +10,10 @@ import { authService } from '@/services/auth.service';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'localhost';
 const PROTOCOL = process.env.NEXT_PUBLIC_PROTOCOL ?? 'http';
 
+const isDev = process.env.NEXT_PUBLIC_MODE === 'development';
+
 const options: CreateAxiosDefaults = {
-  baseURL: `${PROTOCOL}://${BASE_URL}/api`,
+  baseURL: `${PROTOCOL}://${BASE_URL}${isDev ? ':3002' : ''}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
