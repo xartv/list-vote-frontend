@@ -9,8 +9,6 @@ Backend you can find here https://github.com/xartv/list-vote-backend
 
 Demo of full project you can find here [listvote.ru](https://listvote.ru/)
 
-[![listvote demo](https://img.youtube.com/vi/ZBwm0jCc6fk/0.jpg)](https://www.youtube.com/watch?v=ZBwm0jCc6fk)
-
 ## Installation and running
 
 1. Clone the project and install the dependencies
