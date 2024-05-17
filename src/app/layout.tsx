@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import type { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
 import { Roboto_Flex } from 'next/font/google';
 import { Montserrat } from 'next/font/google';
 import { Toaster } from 'sonner';
