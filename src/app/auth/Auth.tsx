@@ -51,7 +51,7 @@ export function Auth() {
   const email = watch('email');
 
   const isPasswordEqualsConfirm = password && password === passwordConfirm;
-  const isPasswordStrong = passwordStrength >= 3;
+  const isPasswordStrong = passwordStrength >= 2;
   const isSubmitButtonDisabled =
     !isLoginForm && (!email || !isPasswordEqualsConfirm || !isPasswordStrong);
 
